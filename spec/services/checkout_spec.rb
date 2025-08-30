@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
-RSpec.describe CashierRegister::Services::Checkout do
-  describe '#total' do
-    subject(:checkout) { described_class.new(price_rules).total }
+require 'spec_helper'
 
-    let(:rules) { double('PriceRules') }
+RSpec.describe CashierRegister::Services::Checkout do
+  let(:checkout) { described_class.new(price_rules) }
+
+  describe '#total' do
+    subject(:total) { checkout.total }
+
+    let(:price_rules) { CashierRegister::Services::PriceRules }
 
     before do
       product_codes.each { |code| checkout.scan(code) }
