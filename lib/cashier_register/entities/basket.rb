@@ -27,7 +27,8 @@ module CashierRegister
       def find_or_create_item(product)
         item = items.find { |item| item.product_code == product.code }
         items << item = line_item.new(product:) if item.nil?
-        item || line_item.new(product:)
+        # item || line_item.new(product:)
+        item
       end
     end
   end
