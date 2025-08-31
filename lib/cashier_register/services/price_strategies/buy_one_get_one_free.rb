@@ -17,7 +17,9 @@ module CashierRegister
             next if item.nil?
 
             amount = calculate_discount(item)
-            basket.discounts << discount.new(rule: to_s, amount:)
+            next if amount.zero?
+
+            basket.discounts << discount.new(rule: self.class.to_s, amount:)
           end
         end
 

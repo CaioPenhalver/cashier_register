@@ -3,12 +3,13 @@
 module CashierRegister
   module Repositories
     class Products
-      def initialize(product: Entities::Product)
+      def initialize(product: Entities::Product, db_adapter: Infrastructure::DB_ADAPTER)
         @product = product
+        @db_adapter = db_adapter
       end
 
       def find_by(code:)
-        record = database_products_table.find { |product| product[:code] == code }
+        record = db_adapter[:products].find { |product| product[:code] == code }
         return nil if record.nil?
 
         product.new(**record)
@@ -16,27 +17,7 @@ module CashierRegister
 
       private
 
-      attr_reader :product
-
-      def database_products_table
-        [
-          {
-            code: 'GR1',
-            name: 'Green tea',
-            price: BigDecimal('3.11')
-          },
-          {
-            code: 'SR1',
-            name: 'Strawberries',
-            price: BigDecimal('5.00')
-          },
-          {
-            code: 'CF1',
-            name: 'Coffee',
-            price: BigDecimal('11.23')
-          }
-        ]
-      end
+      attr_reader :product, :db_adapter
     end
   end
 end

@@ -6,13 +6,13 @@ RSpec.describe CashierRegister::Entities::Discount do
   let(:amount) { BigDecimal('5.0') }
 
   describe '#rule' do
-    subject(:rule_attribute) { product.rule }
+    subject(:rule_attribute) { discount.rule }
 
     it { is_expected.to eq rule }
   end
 
   describe '#amount' do
-    subject(:amount_attribute) { product.amount }
+    subject(:amount_attribute) { discount.amount }
 
     it { is_expected.to eq amount }
   end
