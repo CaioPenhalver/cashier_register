@@ -2,6 +2,7 @@
 
 require 'bigdecimal'
 
+require_relative 'cashier_register/errors/not_found_product'
 require_relative 'cashier_register/entities/basket'
 require_relative 'cashier_register/entities/discount'
 require_relative 'cashier_register/entities/line_item'

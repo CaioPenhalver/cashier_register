@@ -11,6 +11,8 @@ module CashierRegister
 
       def scan(product_code)
         product = products_repository.find_by(code: product_code)
+        raise Errors::NotFoundProduct if product.nil?
+
         basket.add_item(product)
       end
 

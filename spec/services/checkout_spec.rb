@@ -4,11 +4,26 @@ require 'spec_helper'
 
 RSpec.describe CashierRegister::Services::Checkout do
   let(:checkout) { described_class.new(price_rules) }
+  let(:price_rules) { CashierRegister::Services::PriceRules.new }
+
+  describe 'scan' do
+    subject(:scan) { checkout.scan(code) }
+
+    context 'when code does not exist' do
+      let(:code) { 'NOT_EXIST' }
+
+      it { expect { scan }.to raise_error(CashierRegister::Errors::NotFoundProduct) }
+    end
+
+    context 'when code exists' do
+      let(:code) { 'GR1' }
+
+      it { expect { scan }.not_to raise_error }
+    end
+  end
 
   describe '#total' do
     subject(:total) { checkout.total }
-
-    let(:price_rules) { CashierRegister::Services::PriceRules.new }
 
     before do
       product_codes.each { |code| checkout.scan(code) }
