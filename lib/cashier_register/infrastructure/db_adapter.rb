@@ -23,4 +23,3 @@ module CashierRegister
     }.freeze
   end
 end
-

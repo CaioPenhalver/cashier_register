@@ -11,6 +11,7 @@ require_relative 'cashier_register/repositories/products'
 require_relative 'cashier_register/services/checkout'
 require_relative 'cashier_register/services/price_strategies/buy_one_get_one_free'
 require_relative 'cashier_register/services/price_strategies/trhee_or_more_get_a_discount'
+require_relative 'cashier_register/services/price_strategies'
 require_relative 'cashier_register/services/price_rules'
 
 module CashierRegister

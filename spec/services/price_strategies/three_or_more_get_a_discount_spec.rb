@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe CashierRegister::Services::PriceStrategies::ThreeOrMoreGetADiscount do
-  let(:strategy) { described_class.new(basket:, discount: discount_class) }
+  let(:strategy) { described_class.new(discount: discount_class) }
   let(:item) do
     instance_double(CashierRegister::Entities::LineItem,
                     product_code:,
@@ -18,7 +20,7 @@ RSpec.describe CashierRegister::Services::PriceStrategies::ThreeOrMoreGetADiscou
   let(:amount) { BigDecimal('9.0') }
 
   describe '#apply' do
-    subject(:apply) { strategy.apply }
+    subject(:apply) { strategy.apply(basket) }
 
     let(:discount) { instance_double(CashierRegister::Entities::Discount) }
 

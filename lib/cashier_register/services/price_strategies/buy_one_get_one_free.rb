@@ -6,12 +6,11 @@ module CashierRegister
       class BuyOneGetOneFree
         ELIGIBLE_PRODUCTS = ['GR1'].freeze
 
-        def initialize(basket:, discount: Entities::Discount)
-          @basket = basket
+        def initialize(discount: Entities::Discount)
           @discount = discount
         end
 
-        def apply
+        def apply(basket)
           ELIGIBLE_PRODUCTS.each do |code|
             item = basket.items.find { |item| item.product_code == code }
             next if item.nil?
@@ -25,7 +24,7 @@ module CashierRegister
 
         private
 
-        attr_reader :basket, :discount
+        attr_reader :discount
 
         def calculate_discount(item)
           number_of_free_items = item.quantity / 2

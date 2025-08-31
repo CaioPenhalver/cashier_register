@@ -8,7 +8,7 @@ RSpec.describe CashierRegister::Services::Checkout do
   describe '#total' do
     subject(:total) { checkout.total }
 
-    let(:price_rules) { CashierRegister::Services::PriceRules }
+    let(:price_rules) { CashierRegister::Services::PriceRules.new }
 
     before do
       product_codes.each { |code| checkout.scan(code) }
@@ -36,6 +36,12 @@ RSpec.describe CashierRegister::Services::Checkout do
       let(:product_codes) { %w[GR1 CF1 SR1 CF1 CF1] }
 
       it { is_expected.to eq BigDecimal('30.57') }
+    end
+
+    context 'when eligible for all discounts' do
+      let(:product_codes) { %w[GR1 CF1 SR1 CF1 CF1 GR1 SR1 SR1] }
+
+      it { is_expected.to eq BigDecimal('39.07') }
     end
   end
 end

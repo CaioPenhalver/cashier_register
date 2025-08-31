@@ -9,12 +9,11 @@ module CashierRegister
           'CF1' => BigDecimal('0.33333')
         }.freeze
 
-        def initialize(basket:, discount: Entities::Discount)
-          @basket = basket
+        def initialize(discount: Entities::Discount)
           @discount = discount
         end
 
-        def apply
+        def apply(basket)
           ELIGIBLE_PRODUCTS.each do |code, percentage_discount|
             item = basket.items.find { |item| item.product_code == code }
             next if item.nil?
@@ -28,7 +27,7 @@ module CashierRegister
 
         private
 
-        attr_reader :basket, :discount
+        attr_reader :discount
 
         def calculate_discount(item, percentage_discount)
           return BigDecimal('0') if item.quantity < 3

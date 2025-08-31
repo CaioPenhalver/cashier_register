@@ -3,16 +3,17 @@
 module CashierRegister
   module Services
     class PriceRules
-      PRICE_STRATEGIES = [
-        PriceStrategies::BuyOneGetOneFree,
-        PriceStrategies::ThreeOrMoreGetADiscount
-      ].freeze
-
-      class << self
-        def apply(basket)
-          PRICE_STRATEGIES.each { |rule| rule.new(basket:).apply }
-        end
+      def initialize(rules: PriceStrategies::RULES)
+        @rules = rules
       end
+
+      def apply(basket)
+        rules.each { |rule| rule.apply(basket) }
+      end
+
+      private
+
+      attr_reader :rules
     end
   end
 end
